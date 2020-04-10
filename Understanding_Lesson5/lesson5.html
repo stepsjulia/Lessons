@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lesson 5</title>
+	<style>
+		.row {
+			height: 256px
+		}
+		#div1 {
+			background-color: cornflowerblue;
+		}
+		#div2 {
+			background-color: pink;
+		}
+
+		/* #img01 {
+			position: relative;
+			top: 0;
+			left: 0;
+		} */
+	</style>
+</head>
+<body>
+	<img id="networkImage" src="" alt="">
+	<img id="img01" src="img01.jpg" alt="">
+	<button id="toggle">Stop/Start</button>
+	<script>
+	//Lab 2
+
+	// let usernames = ['july', "alex", "tim"]
+
+	// for(let user of usernames){
+	// 	if(user.includes('i')) {
+	// 		alert(user);
+	// 	}
+	// }
+	
+	// let numbers = [1,2,3,4];
+	// numbers.map() 
+	//insterad of creating variable we can do so:
+
+	// let doubleNumbers = [1,2,3,4].map(function(item) {
+	// 	return item * 2;
+	// })
+
+	//we can make  even more shorter:
+
+	let doubleNumbers = [1,2,3,4].map(item => item * 2)
+
+	console.log(doubleNumbers);
+
+		let result = ["fff","rrr","aaa"].reduce((current, total) => total += current)
+	console.log(result)
+	
+	console.log(['july', "alex", "tim"].filter(item => item.includes("i")))
+
+	let names = ['july', "alex", "tim"].filter(item => item.includes("i")).forEach(item => alert(item))
+	
+	//Functional Programming
+
+	//TODO: add link
+
+	//JSON (not JavaScript object)
+
+	let dog = {
+		'name': 'Charlie',
+		'age': 12
+	}
+
+	//objects have pairs of properties and values
+	//properties must be strings
+	//values can be any data type
+
+	// we can use notation of these objects
+	console.log(dog.age);
+	'{\"name\",\"Charlie\"}'
+
+	//array of JSON objects
+	[
+		{},
+		{},
+		{}
+	]
+	localStorage.setItem('reminders', JSON.stringify({"reminder1": "buy rice", "reminder2" : "buy milk"}))
+	let reminders = JSON.parse(localStorage.getItem("reminders"));
+
+
+	// for in loop , for looping through object properties
+	for(let reminder in reminders) {
+	//	console.log(reminder);// returns the key
+	//	console.log(reminders[reminder]); //returns the value
+	}
+
+	//fetching JSON data from a server
+	fetch('https://comp2015.herokuapp.com/images')
+		.then(response => response.json())
+		.then(response => useData(response))
+
+	function useData(responseFromFetch) {
+		console.log(responseFromFetch);
+		console.log(responseFromFetch[1]);
+		document.getElementById('networkImage').src = responseFromFetch[1].url
+	}
+	</script>
+	<script>
+	//API - Application Programming Interface - a set of URLs (= endpoints)
+	//setTimeout() - only runs once
+	//setInterval() - runs until it is stopped
+	
+	let counter = 0;
+	setInterval(function(){
+		//console.log(counter++);
+		//
+	}, 500)
+
+	let dog1 = document.getElementById('img01');
+	dog1.style.position = "relative";
+	dog1.style.top = "0px";
+	dog1.style.left = "0px";
+
+
+	// setInterval(function() {
+	// 	let currentPosition = parseInt(dog1.style.left);
+	// 	currentPosition++;
+	// 	dog1.style.left = currentPosition + 'px';
+	// }, 20)
+
+	//to stop animation
+	//1 - use the value (animation id) returned by setInterval()
+
+	// 2- 
+	let animationId = null;
+	let button = document.getElementById('toggle');
+
+	// animationId = setInterval(function() {
+	// 	let currentPosition = parseInt(dog1.style.left);
+	// 	currentPosition++;
+	// 	dog1.style.left = currentPosition + 'px';
+	// }, 20); 
+
+	button.onclick = function() {
+
+		if(animationId === null) {
+			animationId = setInterval(function() {
+				let currentPosition = parseInt(dog1.style.left);
+				currentPosition++;
+				dog1.style.left = currentPosition + 'px';
+			}, 20); 
+		}
+		else{
+			clearInterval(animationId);
+			animationId = null;
+		}
+	}
+
+	//console.log('animation id', animationId)
+
+	 </script>
+	 <script>
+		let h1 = document.createElement('h1');
+		document.body.appendChild(h1);
+		console.log('node tyoe', h1.nodeType)
+
+		let h1Text = document.createTextNode('Lesson 5');
+		h1.appendChild(h1Text);
+
+		for (let node of h1.childNodes) {
+			console.log(node, node.nodeType);
+		}
+	</script>
+	<div id="div1" class="row">
+		<img src="img01.jpg" alt="" id="dog2"/>
+		<img src="img02.jpg" alt="" id="dog3"/>
+		<img src="img03.jpg" alt="" id="dog4"/>
+	</div>
+	<div id="div2" class="row">
+	</div>
+	<script>
+		let dogs = document.images;
+		for(let dog of dogs) {
+			dog.onclick = function() {
+				if(this.nextElementSibling !== null) {
+					this.parentNode.insertBefore(this.nextElementSibling, this);
+				}
+				else {
+					if(this.parentNode.nextElementSibling !== null) {
+						this.parentNode.nextElementSibling.appendChild(this);
+					}
+				}
+			}
+		}
+	</script>
+</body>
+</html>

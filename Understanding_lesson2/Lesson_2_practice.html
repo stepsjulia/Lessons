@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<htmllang="en">
+<head><metacharset="UTF-8">
+  <title>Lesson 2</title>
+  <script src="lesson02.js" defer></script>
+</head>
+<body>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+
+  <script>
+
+      //Loop
+      //For loop we should use document.getElementByTagName
+  
+      document.getElementsByTagName('div');
+      // to add a class to div, use the .className property
+
+      // document.getElementByTagName('div')[0].className = 'className';
+      // document.getElementByTagName('div')[1].className = 'className';
+      // document.getElementByTagName('div')[2].className = 'className';
+      // document.getElementByTagName('div')[3].className = 'className';
+
+      let allDivs = document.getElementsByTagName('div');
+      for (let singleDiv of allDivs) {
+        singleDiv.className = 'className';
+      }
+    </script>
+    <script>
+      //Condition statements
+
+      let age= 16;
+      let stoleAcar = true;
+
+      //note: only one block will run , e
+
+      if (age >= 16) {
+       // if >= 16 - we run this block
+        console.log('you can drive');
+      }
+
+      else if ( !stoleAcar === true) {
+        console.log('you can not drive');
+      }
+
+      else {
+        // otherwise - we run this block
+        console.log('you can not drive');
+      }
+
+      // if (condition is true) {
+
+      // }
+
+      /* Logical operators
+
+      >
+      <
+      >=
+      <=
+      == (equal to, test only for matching value)
+      === (equal to, test for matching value and matching data type)
+      &&
+      ||
+      !
+      */
+
+      console.log(5==5);
+    /*
+
+    && - AND
+    || - ORLogical connections , i.e 
+    
+    */
+
+    if ((age >= 16 && age <= 100) || stoleAcar) {
+      console.log('you can drive');
+    }
+    else {
+      console.log('you can not drive');
+    }
+
+    /*
+    Shortcuts for figuring out truth value of an if condition
+
+    && -identify - 
+
+    Chris is wearing  a black switchot  AND it is MOnday - T
+     Chris is wearing  a grey switchot  AND it is MOnday - F
+      Chris is wearing  a black switchot  AND it is MOnday - F
+    
+      Becouse True && True, else False
+
+     ||
+
+     F || F = F
+    */
+
+    /*
+      Short circuiting
+
+      let stoleACar =false;
+      if (stoleAcar && ...) {
+        the right side is irrelevant, becouse any false paired with && 
+      }
+      If one point - false - whole function will be false
+    */
+
+    //Lab 2, part 2
+
+    let names = ['','',''];
+    </script>
+</body>
+</html>

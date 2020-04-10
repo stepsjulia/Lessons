@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<htmllang="en">
+<head><metacharset="UTF-8">
+  <title>Lesson 1</title>
+  <script src="lesson02.js" defer></script>
+  <!-- <script>
+    document.getElementById('heading').style.color = "blue"; //it dos not work - becouse the element does not exist yetß
+  
+  </script> -->
+</head>
+<body>
+  <script>
+      //Arrays
+
+      //Add items to array
+      let schools = ["First", "Second"];
+      //console.log(schools);
+
+      //1. use .push
+
+      schools.push("UBC");
+      console.log(schools);
+
+      //2. use squere brackets and numeric index
+      schools[2] = "Capilano";
+      //console.log(schools);
+
+      schools[0] = "Langara";
+
+      //Read items from array
+      console.log(schools[3]); //returns UBC
+
+
+      //searching for items in an array
+      //["First", "Second", "UBS", emptyx6 "Langara"]
+
+      //1. indexOf(string/number/...)
+      console.log(schools.indexOf("Douglas")); // returns -1
+
+      //Nested (two-dimensional) array
+      let twoDarray =[
+        1,
+        'bethany',
+        true,
+        [5,6,7]
+      ];
+
+      console.log(twoDarray[1]); 
+
+      // example
+      // let ticTacToe =[
+      //   [x,o,x]
+      //   [o,x,x]
+      //   [x,o,o]
+      // ]
+  </script>
+  <script>
+    //document.getElementById();
+    //DOM - Document Object Model - model of the .html page
+    //document.images
+    //document.links
+    //document.forms
+    
+    // document.images[0].style.border = '1px solid red'; //if the order of elements changes -this statement affects a different
+    //DOM 1
+
+    //getElementById(); -return single element
+    //getElementByTagName(); -return an array of elements
+    //getElementByClassName(); -return an array
+    //.querySelectorAll() -return an array of matching elements
+
+
+    document.querySelector('#d1 p:first-child')
+
+    //If have task to change all width of images to 100px
+    document.images.width = 100; //it does not work because we need to use loop
+    
+  </script>
+  <img id="cat" src="img01.jpg" alt="image-description">
+  <img id="doc" src="img02.jpg" alt="image-description">
+  <script>
+    document.images[0].style.border = '1px solid red'; //if the order of elements changes -this statement affects a different
+    //Loop
+    // -way of repeating one or more statements mutliple times
+
+    //For -Of Loop
+
+    console.log('before the loop');
+    for (let image of document.images) {
+      //let image --> loop images
+      image.width = 100;
+      image.height = 300;
+      image.style.transform = "rotate(45deg)"
+      console.log(image);
+    }
+    console.log('after the loop');
+  </script>
+
+  <div id="d1">
+    <p></p><!--trying to target this element-->
+    <p></p>
+  </div>
+</body>
+</html>

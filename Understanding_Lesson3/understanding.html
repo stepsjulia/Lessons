@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Understanding Lesson 3</title>
+    <link media="all" rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
+      crossorigin="anonymous">
+    </script>
+</head>
+<body>
+  <h1>Title</h1>
+  <div id="div1">
+  </div>
+  <div id="div2">
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem, autem dolor reiciendis deserunt temporibus sit omnis voluptates nesciunt ad amet iusto quo, praesentium, ullam expedita quisquam? Iusto dicta qui quibusdam.</p>
+  </div>
+  <a class='link'>Link</a>
+  <p id="1">First paragraph</p>
+  <p id="2">2</p>
+  <p id="3">3</p>
+  <p id="4">4</p>
+  <p id="5">5</p>
+  <p>
+      <button id="button">Button</button>
+  </p>
+  <p class="slider">Hover paragraph</p>
+  <div>
+    <img id="img1" src="img04.jpg" alt="image-description">
+    <img id="img2" src="img03.jpg" alt="image-description">
+  </div>
+
+  <form id="myform" action="">
+    <p>
+      <label for="email">Email:</label>
+      <input type="text" class="required" id="email" name="email">
+    </p>
+    <p> 
+      <label for="password">Password:</label>
+      <input type="text" class="required" id="password" name="email">
+    </p>
+    <p>
+      <input type="submit">
+    </p>
+  </form>
+  <script>
+    window.onload =function() {
+      document.forms[0].onsubmit =function() {
+        let inputs = this.elements;
+        let labels = document.getElementsByTagName('label');
+        let error = false;
+
+        for(let i = 0; i < inputs.length; i++) {
+          let theClass = inputs[i].className;
+          
+          if(theClass.indexOf("required") >= 0 && inputs[i].value.length < 1) { 
+            alert(inputs[i].id +' must not be empty');
+
+            labels[i].setAttribute('style','color: red');
+            error = true;
+          }
+        }
+        if(error) {
+          // equivalent to if (error == true)
+          return false;
+        }
+      }
+    }
+
+    const Gtt = () => {
+        console.log(Gtt);
+    }
+
+    Gtt();
+
+    let a= 10;
+    let b = 20;
+    function scopeTest() {
+      let c = 20;
+      a++;
+      console.log(c);
+      console.log(a);
+    }
+
+    scopeTest();
+    console.log(c);
+    console.log(a);
+
+  </script>
+  <script>
+    // $(document).ready(function() {
+    //   $("#myform").validate({
+    //       rules: {
+    //       email: { required:true, email:true},
+    //       password:'required'},
+    //       messages: {email:'valid email is required',password:'password is required'},
+    //       submitHandler: function(form) {
+    //         form.submit();
+    //       }
+    //     }
+    //   );
+    // });
+
+    window.onkeyup = function(event) {
+      // event is a global object available to use whenever you are inside an event handler function (also called event listener)
+      console.log(event.which);
+
+      if (event.which === 90) {
+          // 13 = enter key
+          alert('you hit the enter key');
+      }
+    }
+  </script>
+  <script>
+    function add(arg1, arg2) {
+      console.log(arg1 + arg2);
+    }
+    let printSum = add;// *important* no parentheses! otherwise the code inside
+    // add() will run immediately
+    printSum(1, 2);
+    printSum(3, 4)
+
+    let printsSum = function(arg1, arg2) {
+      alert(arg1 + arg2);
+    }
+
+    printsSum('string1', 'string2');
+
+   /* Events JavaScript provides manyeventsthat we can use to make our apps/pages interactive.
+    We have already seen the ‘onload’ event,which fires when the page is finished loading, 
+    but there are many others that allow us to add dynamic behaviours based on whata user is doing. 
+    Here is a short list ofevent handlersthat we will use during the course,
+     but there are many others (seehttps://developer.mozilla.org/en-US/docs/Web/Eventsfor an 
+     exhaustive list)•click•dblclick•mouseover•mouseoutThere are a few different ways that we
+      can use event handlers in our code. The first is by setting the onclick property of an object 
+      to an anonymous or named function.examples:// click, using an anonymous function without creating
+       a letiable */
+
+    document.images[0].onclick =function() {this.style.border ='1px solid red'}
+    // See the next chapter for the meaning of the keyword 'this'
+
+    // dblclick, using a named function and letiable 
+    let firstDiv = document.getElementById('div1');
+
+    function changeDecoration() {
+      this.style.height ='200px';
+    }
+
+    function returnDecoration() {
+      this.setAttribute('style', 'background-color: red; transition: height 0.3s linear 0.1s;');
+    }
+
+    firstDiv.ondblclick = changeDecoration;
+    firstDiv.onmouseleave = returnDecoration;
+
+    // mouseover, using an anonymous function and letiable 
+
+    let firstImage = document.images[1];
+
+    firstImage.onmouseover =function() {
+      this.style.opacity ='0';
+    }
+
+    firstImage.onmouseleave =function() {
+      this.style.opacity ='0.5';
+    }
+
+    //this
+    document.images[0].onclick = function() {
+      alert(this);
+    }
+    //Rotate images
+
+    let images = document.getElementsByTagName('img');
+
+    for (let i=0; i<images.length; i++) {
+      images[i].onclick = rotateImage;
+    }
+
+    function rotateImage() {
+      this.setAttribute(
+        'style',
+        'transform: rotate(90deg); opacity: 0.8;'
+      );
+    }
+
+    $(document).ready(function(){
+      $("#button").click(function(){
+        $(".slider").slideToggle();
+      });
+    })
+
+    // let paragraphs = document.getElementsByTagName('p');
+    // for(let i = 0; i < paragraphs.length; i++) {
+    //   paragraphs[i].onclick = changeToRed;
+    // }
+    // function changeToRed() {
+    //   this.setAttribute('style','color: red;');
+    // }
+    //And the equivalent in jQuery:
+
+    $(document).ready(function(){
+      $('p').hover(function() {
+        $(this).css('color','green');
+      });
+      $('p').mouseover(function() {
+        $(this).css('color','blue');
+      })
+    })
+
+    // $("a").click(function() {
+    //   $("body").append($(this).attr("href"));
+    //   return false;
+    // })
+    // $(document).ready(function(){
+
+    //   $(".link").click(function(e) {
+    //     $("body").append($(this).attr("href", "http://alexstep.ca"));
+    //     return confirm('Are you sure you want to click this link?')
+    //     e.preventDefault();
+    //   })
+    // })
+    
+  </script>
+</body>
+</html>

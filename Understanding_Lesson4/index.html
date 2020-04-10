@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reminder</title>
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script defer src="main.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<style>
+		html {
+			font-size: 125%;
+			height: 100%;
+		}
+		body {
+			font-family: Arial, sans-serif;
+			min-height: 100%;
+			padding: 2rem;
+		}
+		h1 {
+			margin-top: 0;
+			font-family: 'Pacifico', cursive;
+			font-size: 3em;
+			color: navy;
+			line-height: 1;
+		}
+		.form-group {
+			display: flex;
+			margin-top: 0.5rem;
+		}
+		#add-label {
+			margin-bottom: 0px;
+		}
+		#input-reminder {
+    	font-size: 0.9em;
+    	padding: 0.5em;
+		}
+		button {
+			margin-left: 10px;
+			padding: 0 2em;
+			border-radius: 5px;
+			-webkit-appearance: none;
+			outline: none;
+		}
+		button:hover {
+			cursor: pointer;
+		}
+		.reminder {
+			color: blue;
+		}
+		.reminder.preview{
+			color: green;
+		}
+		.notices {
+			display: none;
+		}
+		.notice {
+			display: inline-block;
+			padding: 1em;
+			color: white;
+			background: green;
+			border-radius: 5px;
+		}
+		.notice.error {
+			background: red;
+		}
+		#clear {
+			height: 3em;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Reminders</h1>
+		<p id="add-label"><label for="add-reminder">Add a new Reminder</label></p>
+		<div class="form-group">
+			<input type="text" id="input-reminder">
+			<button id="submit-reminder">Save</button>
+		</div>
+		<ul id="reminders">
+				<li class="reminder preview"></li>
+		</ul>
+		<button id="clear">Delete all Reminders</button>
+		<p class="notices">
+			<span class="notice"></span>
+		</p>
+	</main>
+	<!-- COMP 2015 Assignment: Reminders App 
+
+			In this assignment we are building a Reminders app that allows you to
+			1. Preview new reminders
+			2. Display helpful notices to the user
+			3. Save reminders to browser storage
+			4. Fetch and display stored reminders when the page is reloaded (reminders must be displayed in sorted order – most recent reminder first)
+			5. Delete all reminders
+			6. UX Improvements
+
+			All of these features (barring feature number 4, for obvious reasons) should happen without the page having to reload
+
+
+			Features:
+
+
+			1. Preview new reminders
+			------------------------
+			Get a reference to the input field and the list item with class 'preview'
+			Add an event listener for the keyup event – whenever a key is pressed, copy the VALUE of the input into the INNER HTML of the list item
+
+
+
+
+			2. Display helpful notices to the user
+			--------------------------------------
+			Create a function called showNotice. The showNotice function should accept two arguments: the text that should be displayed in the notice and a boolean indicating whether the message being displayed is an error message
+
+			In this function you have several tasks:
+			a) Set the INNER HTML of the the element with class 'notice' to the message text passed in as your first argument
+			
+			b) Check if the message is an error or not. If it is an error, add class 'error' to the element with class 'notice' (BUT LEAVE THE 'NOTICE' CLASS INTACT). If it is not an error, make sure the element does not have class 'error' (i.e. REMOVE class error);
+			
+			c) SHOW the element with class 'notices' (use jquery)
+			
+			d) After a 2 second delay, HIDE the element with class 'notices' (use jquery)
+
+
+
+
+			3. Save reminders to browser storage
+			------------------------------------
+			When the button with id 'submit-reminder' is clicked, check if the VALUE of the input is empty. If it is not empty, store the value in browser storage.
+
+			To store reminders in browser storage properly, do the following:
+
+			a) Create a variable called index and give it an initial value of zero
+
+			b) Every time you call window.localStorage.setItem(key, value); use and increment your index as part of the key. For example, prefix every reminder with the word 'reminder', then concatenate your index.
+
+				e.g. window.localStorage.setItem(`reminder${index++}`, value);
+
+				The value you pass to setItem should be the reminder itself, i.e. the VALUE of the input
+
+
+			After checking that the reminder was successfully stored in local storage, call your showNotice function and pass in a message indicating that the reminder has been stored.
+
+			Next, use DOM scripting to create an li element with class 'reminder'. Populate the INNER HTML of your new li with the VALUE of the input, then INSERT it inside the ul with id 'reminders'
+
+			NOTE: newly added reminders should appear at the top of the list! i.e. they should be INSERTED before the FIRST ELEMENT CHILD of the ul.
+
+			Last, empty out the INNER HTML of the element with class 'preview'
+
+
+			Finally, the button with id 'submit-reminder' is clicked, and the VALUE of the input is empty, show an error notice explaining that blank reminders cannot be saved
+
+			Test that browser storage is working by adding a few reminders and refreshing the browser!
+
+
+
+
+			4. Fetch and display stored reminders when the page is reloaded
+			---------------------------------------------------------------
+			When the page loads, use a while loop to loop through all the items in local storage. 
+
+			For every reminder found, use DOM scripting to create an li element with class 'reminder'. Populate the INNER HTML of your new li with the value you get back when calling window.localStorage.getItem(), then INSERT it inside the ul with id 'reminders'
+
+			NOTE: newest reminders should appear at the top of the list! i.e. they should be INSERTED before the FIRST ELEMENT CHILD of the ul.
+
+			ALSO NOTE: the DOM scripting portion of this feature is essentially the same as the DOM scripting portion of part 3 – perhaps this is an opportunity to reuse some code? :)
+
+
+
+
+			5. Delete all reminders
+			-----------------------
+			When the button with id 'clear' is clicked, check the number of items in local storage (using window.localStorage.length).
+
+			If there are no items in local storage, show an error notice indicating this to the user.
+
+			If there are items stored in local storage, CLEAR local storage and REMOVE (use jquery) all the elements on the page with class 'reminder' but NOT the element that has class 'preview' and class 'reminder' (i.e. <li class="reminder preview"></li>)
+
+
+
+
+			6. UX Improvements
+			------------------
+
+			a) Clear the input
+			
+			After successfully saving a reminder, or deleting all reminders, clear the input field (i.e. set the VALUE of the input to an empty string)
+
+			b) In your keyup listener, make it so that hitting the enter key will trigger submission of your reminder. Hint: you will likely need to create a separate function that can be called both by your keyup listener and the onclick listener assigned to the button with id 'submit-reminder'
+
+			c) Automatically focus the input after a reminder is saved, or all the reminders are deleted
+	-->
+</body>
+</html>
